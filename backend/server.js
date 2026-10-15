@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const mongoose = require('mongoose');
 
 const Student = require('./models/Student');
@@ -189,6 +190,20 @@ app.get('/api/course-roster/:courseId', async (req, res) => {
         console.error('Error fetching course roster:', error);
         res.status(500).send({ error: 'Internal server error' });
     }
+});
+
+// Unknown API routes return JSON 404
+app.use('/api', (req, res) => {
+    res.status(404).send({ error: 'API route not found' });
+});
+
+// Serve the built Vue app
+const distPath = path.join(__dirname, '..', 'client', 'dist');
+app.use(express.static(distPath));
+
+// Send index.html for any other route, so refreshing /courses works
+app.get('/{*splat}', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
 });
 
 

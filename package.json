@@ -1,0 +1,10 @@
+{
+  "name": "cis3339-homework1",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd backend && npm install && cd ../client && npm install",
+    "build": "cd client && npm run build",
+    "start": "node backend/server.js"
+  }
+}
