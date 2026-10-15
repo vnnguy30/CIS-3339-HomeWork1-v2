@@ -3,6 +3,9 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 
+   require('dotenv').config();
+   const mongoose = require('mongoose');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -96,6 +99,10 @@ app.post('/delete-student', async (req, res) => {
     }
 });
 
+   mongoose.connect(process.env.MONGODB_URI)
+       .then(() => console.log('Connected to MongoDB'))
+       .catch((error) => console.error('MongoDB connection error:', error));
+       
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
