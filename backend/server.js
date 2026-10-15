@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // Endpoint to search for a student by name
-app.post('/find-student', async (req, res) => {
+app.post('/api/find-student', async (req, res) => {
     try {
         const { name } = req.body;
         if (!name) {
@@ -32,7 +32,7 @@ app.post('/find-student', async (req, res) => {
 });
 
 // Endpoint to list all students
-app.get('/students', async (req, res) => {
+app.get('/api/students', async (req, res) => {
     try {
         const students = await Student.find();
         res.send(students);
@@ -43,7 +43,7 @@ app.get('/students', async (req, res) => {
 });
 
 // Endpoint to save a student
-app.post('/add-student', async (req, res) => {
+app.post('/api/add-student', async (req, res) => {
     try {
         const { name, id, phone, zip } = req.body;
         if (!name || !id || !phone || !zip) {
@@ -66,7 +66,7 @@ app.post('/add-student', async (req, res) => {
 });
 
 // Endpoint to delete a student by name
-app.post('/delete-student', async (req, res) => {
+app.post('/api/delete-student', async (req, res) => {
     try {
         const { name } = req.body;
         if (!name) {
@@ -88,7 +88,7 @@ app.post('/delete-student', async (req, res) => {
 
 
 // Endpoint to list all courses
-app.get('/courses', async (req, res) => {
+app.get('/api/courses', async (req, res) => {
     try {
         const courses = await Course.find();
         res.send(courses);
@@ -99,7 +99,7 @@ app.get('/courses', async (req, res) => {
 });
 
 // Endpoint to add a course
-app.post('/add-course', async (req, res) => {
+app.post('/api/add-course', async (req, res) => {
     try {
         const { courseId, courseName } = req.body;
         if (!courseId || !courseName) {
@@ -122,7 +122,7 @@ app.post('/add-course', async (req, res) => {
 });
 
 // Endpoint to delete a course
-app.post('/delete-course', async (req, res) => {
+app.post('/api/delete-course', async (req, res) => {
     try {
         const { courseId } = req.body;
         if (!courseId) {
@@ -144,7 +144,7 @@ app.post('/delete-course', async (req, res) => {
 
 
 // Endpoint to enroll a student in a course
-app.post('/enroll', async (req, res) => {
+app.post('/api/enroll', async (req, res) => {
     try {
         const { studentId, courseId } = req.body;
         if (!studentId || !courseId) {
@@ -177,7 +177,7 @@ app.post('/enroll', async (req, res) => {
 });
 
 // Endpoint to list all students enrolled in a course
-app.get('/course-roster/:courseId', async (req, res) => {
+app.get('/api/course-roster/:courseId', async (req, res) => {
     try {
         const { courseId } = req.params;
         const enrollments = await Enrollment.find({ courseId });
